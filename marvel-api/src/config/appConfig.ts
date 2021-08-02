@@ -10,4 +10,7 @@ export default registerAs('app', () => ({
     api: process.env.API,
     jwtSecret: process.env.JWT_SECRET,
     env: process.env.NODE_ENV,
+    marvelApi: process.env.MARVEL_API,
+    marvelApiPublicKey: process.env.MARVEL_API_PUBLIC_KEY,
+    marvelApiPrivateKey: process.env.MARVEL_API_PRIVATE_KEY,
 }));

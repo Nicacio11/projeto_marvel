@@ -36,4 +36,16 @@ export default class EnvService {
   get jwtSecret(): string {
     return this.configService.get<string>('app.jwtSecret');
   }
+
+  get mavelApi(): string {
+    return this.configService.get<string>('app.marvelApi');
+  }
+
+  get mavelApiPublic(): string {
+    return this.configService.get<string>('app.marvelApiPublicKey');
+  }
+
+  get mavelApiPrivate(): string {
+    return this.configService.get<string>('app.marvelApiPrivateKey');
+  }
 }

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { MarvelApiService } from './marvel-api/marvel-api.service';
+import { MarvelApiModule } from './marvel-api/marvel-api.module';
 import DbModule from './config/db.module';
 import EnvService from './config/env.service';
 import UsuarioModule from './usuario/usuario.module';
@@ -10,7 +12,8 @@ import UsuarioModule from './usuario/usuario.module';
   imports: [
     DbModule,
     UsuarioModule,
-    AuthModule
+    AuthModule,
+    MarvelApiModule,
   ],
   providers: [ConfigService, EnvService],
 })
