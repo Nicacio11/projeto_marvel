@@ -9,6 +9,10 @@ export default class EnvService {
     return Number(this.configService.get<number>('app.port'));
   }
 
+  get env(): string {
+    return this.configService.get<string>('app.env');
+  }
+
   get dbName(): string {
     return this.configService.get<string>('app.dbName');
   }
@@ -27,10 +31,6 @@ export default class EnvService {
 
   get dbPass(): string {
     return this.configService.get<string>('app.dbPass');
-  }
-
-  get api(): string {
-    return this.configService.get<string>('app.api');
   }
 
   get jwtSecret(): string {
