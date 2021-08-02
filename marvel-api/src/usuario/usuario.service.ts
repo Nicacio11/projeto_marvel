@@ -43,14 +43,22 @@ export default class UsuarioService {
   }
 
   async create(
-
     data: Partial<UsuarioModel>,
   ): Promise<UsuarioModel> {
     return this.modelClass
       .query()
       .insert(data)
       .first();
+  }
 
+  async update(id: string,
+    data: Partial<UsuarioModel>,
+  ): Promise<number> {
+    return this.modelClass
+      .query()
+      .patch(data)
+      .where({ id })
+      .first();
   }
 }
 
