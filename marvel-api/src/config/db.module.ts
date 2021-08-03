@@ -1,11 +1,13 @@
 import { Module, Global } from '@nestjs/common';
 import Knex from "knex";
 import { Model } from "objection";
+import CharacterModel from 'src/_models/character.model';
+import ComicModel from 'src/_models/comic.model';
 import UsuarioModel from 'src/_models/usuario.model';
 import EnvModule from "./env.module";
 import EnvService from "./env.service";
 
-const models = [UsuarioModel];
+const models = [UsuarioModel, CharacterModel, ComicModel];
 const modelProviders = models.map((model) => ({
   provide: model.name,
   useValue: model,
