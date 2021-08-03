@@ -1,0 +1,13 @@
+@media print {
+  .disappear {
+    display: none !important;
+  }
+  h4 {
+    font-size: 20px !important;
+  }
+  body {
+    font-size: 18px !important;
+    overflow-y: hidden !important; /* Hide vertical scrollbar */
+    overflow-x: hidden !important; /* Hide horizontal scrollbar */
+  }
+}
