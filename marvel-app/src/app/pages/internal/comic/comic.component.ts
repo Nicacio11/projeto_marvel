@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ComicService } from './comic.service';
 import { Comic } from './comic.model';
 import { PageEvent } from '@angular/material/paginator';
+import { PerfilService } from '../perfil/perfil.service';
+import { UsuarioDTO } from 'src/app/core/models/usuario.dto';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comic',
@@ -12,10 +15,13 @@ export class ComicComponent implements OnInit {
   comic: Comic;
   lowValue: number = 0;
   highValue: number = 5;
-
-  constructor(private comicService: ComicService) { }
+  usuarioDto: UsuarioDTO;
+  constructor(private comicService: ComicService, private perfilService: PerfilService, private titleService: Title) { }
 
   ngOnInit(): void {
+
+    this.titleService.setTitle('Comics')
+    this.perfilService.get().subscribe(x => this.usuarioDto = x);
     this.comicService.getAll().subscribe(x => console.log(this.comic = x))
   }
   // handlePageChange(page) {
@@ -31,5 +37,20 @@ export class ComicComponent implements OnInit {
     this.lowValue = event.pageIndex * event.pageSize;
     this.highValue = this.lowValue + event.pageSize;
     return event;
+  }
+
+  gostei(objComic: any) {
+    const comic = {
+      id_usuario: this.usuarioDto.id,
+      id_comic: objComic.id,
+      title: objComic.title,
+      description: objComic.description,
+      thumbnailPath: objComic.thumbnail.path,
+      thumbnailPathExtension: objComic.thumbnail.extension,
+      pageCount: objComic.pageCount
+    }
+    this.comicService.setAsFavorite(comic).subscribe((x) => {
+      objComic.gostei = x;
+    })
   }
 }
