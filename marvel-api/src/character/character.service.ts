@@ -17,10 +17,16 @@ export class CharacterService {
             .first();
     }
 
-    async find(id: string): Promise<CharacterModel> {
+    async find(id: string): Promise<CharacterModel[]> {
         return this.modelClass
             .query()
-            .where({ id_usuario: id })
+            .where({ id_usuario: id });
+    }
+
+    async findByUsuarioAndCharacter(id_usuario: string, id_character: number): Promise<CharacterModel> {
+        return this.modelClass
+            .query()
+            .where({ id_usuario, id_character })
             .limit(1)
             .first();
     }

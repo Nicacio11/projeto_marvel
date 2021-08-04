@@ -6,11 +6,10 @@ export default class CharacterModel extends Model {
     id: number;
     id_usuario: string;
     id_character: number;
-    title: string;
+    name: string;
     description: string;
     thumbnailPath: string;
     thumbnailPathExtension: string;
-    pageCount: string;
     date: Date;
 
     async $beforeInsert(ctx): Promise<void> {
