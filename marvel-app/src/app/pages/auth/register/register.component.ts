@@ -1,6 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { RegisterService } from './register.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -8,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
   formGroup: FormGroup = this.fb.group({});
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private registerService: RegisterService, private router: Router) { }
 
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -30,5 +33,26 @@ export class RegisterComponent implements OnInit {
       }
     }
   }
+  cadastrar(jsonValue: any) {
+    if (this.formGroup.valid) {
+      Swal.showLoading()
+      const obj = {
+        email: jsonValue.email, nome: jsonValue.nome,
+        senha: jsonValue.passwords.senha
+      }
+      this.registerService.create(obj).subscribe(
+        () => {
+          Swal.close();
+          this.router.navigate(['/auth/login']);
+          Swal.fire('Sucesso!', "Cadastrado com sucesso", 'success');
 
+        },
+        (err: HttpErrorResponse) => {
+          const message =
+            err.error.message;
+          Swal.fire('Algo deu errado!', message, 'error');
+        },
+      )
+    }
+  }
 }

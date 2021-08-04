@@ -1,4 +1,4 @@
-import { Body, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { Controller, Get } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import UsuarioModel from 'src/_models/usuario.model';
@@ -18,6 +18,11 @@ export class UsuarioController {
 
   @Post()
   async insert(@Body() data: Partial<UsuarioModel>): Promise<Partial<UsuarioModel>> {
+
+    const find = await this.service.findOneByEmail(data.email);
+    if (find) {
+      throw new BadRequestException('Email cadastrado');
+    }
     const user = await this.service.create(data);
     user.senha = '';
     return user;

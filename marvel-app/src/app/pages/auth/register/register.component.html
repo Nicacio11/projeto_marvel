@@ -1,7 +1,17 @@
 
 <div class="bg">
-  <h2 class="text-white text-center">Cadastrar</h2>
+  <br/><br/>
+  <br/><br/><br/>
+  <br/><br/>
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Cadastrar</mat-card-title>
+      </mat-card-header>
   <form class="example-form" [formGroup]="formGroup">
+    <mat-card-content>
+
     <div class="formGroup">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Nome</mat-label>
@@ -50,9 +60,11 @@
       </mat-form-field>
     </div>
     <div class="text-center">
-      <button mat-raised-button [disabled]="formGroup.invalid" color="primary">Cadastrar</button><br/>
-      <a class="text-white" [routerLink]="['/auth/login']">Entrar</a>
+      <button mat-raised-button [disabled]="formGroup.invalid" (click)="cadastrar(formGroup.value)" color="primary">Cadastrar</button><br/>
     </div>
-  </form>
+  </mat-card-content>
+
+</form>
+</mat-card>
 
 </div>

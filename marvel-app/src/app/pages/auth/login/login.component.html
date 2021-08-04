@@ -1,8 +1,19 @@
 
 <div class="bg">
-  <h2 class="text-white text-center">Login</h2>
+  <br/><br/>
+  <br/><br/><br/>
+  <br/><br/>
+  <div class="main-wrapper" fxLayout="row" fxLayoutAlign="center center">
+
+    <mat-card class="box">
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
   <form class="example-form" [formGroup]="formGroup">
-    <div class="formGroup">
+    <mat-card-content>
+
+    <div class="formGroup" >
+
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
@@ -24,9 +35,12 @@
       </mat-form-field>
     </div>
     <div class="text-center">
-      <button mat-raised-button [disabled]="formGroup.invalid" color="primary" >Logar</button><br/>
-      <a class="text-white" [routerLink]="['/auth/register']">Cadastrar-se</a>
+      <button mat-raised-button [disabled]="formGroup.invalid" color="primary" (click)="logar(formGroup.value)" class="btn btn-">Logar</button><br/>
     </div>
+  </mat-card-content>
+
   </form>
+
+</mat-card>
 
 </div>

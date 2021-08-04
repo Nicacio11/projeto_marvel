@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./core/guards/auth.guard";
 import { ContentComponent } from "./shared/components/layout/content/content.component";
 import { FullComponent } from "./shared/components/layout/full/full.component";
 import { content } from "./shared/components/routes/content.routes";
@@ -13,6 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
+    canActivate: [AuthGuard],
     component: ContentComponent,
     // children: content
   },
