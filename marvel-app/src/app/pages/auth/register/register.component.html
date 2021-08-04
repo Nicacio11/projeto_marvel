@@ -1,1 +1,58 @@
-<p>register works!</p>
+
+<div class="bg">
+  <h2 class="text-white text-center">Cadastrar</h2>
+  <form class="example-form" [formGroup]="formGroup">
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input type="text" matInput formControlName="nome" placeholder="Nome">
+        <div class="text-danger" *ngIf="formGroup.controls.nome.touched && formGroup.controls.nome.errors?.required">
+          O campo nome é obrigatório
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        <div class="text-danger" *ngIf="formGroup.controls.email.touched && formGroup.controls.email.errors?.required">
+          O campo e-mail é obrigatório
+        </div>
+        <div class="text-danger" *ngIf="formGroup.controls.email.touched && formGroup.controls.email.errors?.email">
+          E-mail inválido...
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="form-group" formGroupName="passwords">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input type="senha" type="password" matInput formControlName="senha" placeholder="*********">
+        <div class="text-danger" *ngIf="formGroup.controls.passwords.get('senha')?.touched && formGroup.controls.passwords.get('senha')?.errors?.required">
+          O campo senha é obrigatório
+        </div>
+        <div class="text-danger" *ngIf="formGroup.controls.passwords.get('senha')?.touched && formGroup.controls.passwords.get('senha')?.errors?.minlength">
+          Quantidade de caracteres inválido
+        </div>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Confirmar Senha</mat-label>
+        <input type="senha" type="password" matInput formControlName="confirm_senha" placeholder="*********">
+        <div class="text-danger" *ngIf="formGroup.controls.passwords.get('confirm_senha')?.touched && formGroup.controls.passwords.get('confirm_senha')?.errors?.required">
+          O campo de confirmar senha é obrigatório
+        </div>
+        <div class="text-danger" *ngIf="formGroup.controls.passwords.get('confirm_senha')?.touched && formGroup.controls.passwords.get('confirm_senha')?.errors?.minlength">
+          Quantidade de caracteres inválido
+        </div>
+        <div class="text-danger" *ngIf="formGroup.controls.passwords.get('confirm_senha')?.touched && formGroup.controls.passwords.get('confirm_senha')?.errors?.mismatch">
+          Senha não confere
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="text-center">
+      <button mat-raised-button [disabled]="formGroup.invalid" color="primary">Cadastrar</button><br/>
+      <a class="text-white" [routerLink]="['/auth/login']">Entrar</a>
+    </div>
+  </form>
+
+</div>

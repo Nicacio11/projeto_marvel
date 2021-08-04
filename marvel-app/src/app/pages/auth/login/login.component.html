@@ -1,1 +1,32 @@
-<p>login works!</p>
+
+<div class="bg">
+  <h2 class="text-white text-center">Login</h2>
+  <form class="example-form" [formGroup]="formGroup">
+    <div class="formGroup">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        <div class="text-danger" *ngIf="formGroup.controls.email.touched && formGroup.controls.email.errors?.required">
+          O campo e-mail é obrigatório
+        </div>
+        <div class="text-danger" *ngIf="formGroup.controls.email.touched && formGroup.controls.email.errors?.email">
+          E-mail inválido...
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="form-group">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input type="senha" type="password" matInput formControlName="senha" placeholder="*********">
+        <div class="text-danger" *ngIf="formGroup.controls.senha.touched && formGroup.controls.senha.errors?.required">
+          O campo senha é obrigatório
+        </div>
+      </mat-form-field>
+    </div>
+    <div class="text-center">
+      <button mat-raised-button [disabled]="formGroup.invalid" color="primary" >Logar</button><br/>
+      <a class="text-white" [routerLink]="['/auth/register']">Cadastrar-se</a>
+    </div>
+  </form>
+
+</div>
