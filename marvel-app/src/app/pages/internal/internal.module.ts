@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { InternalRoutingModule } from './internal.routing';
 import { ComicComponent } from './comic/comic.component';
 import { CharacterComponent } from './character/character.component';
+import { Title } from '@angular/platform-browser';
 
 import { MatIconModule } from '@angular/material/icon';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -34,10 +35,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PerfilComponent } from './perfil/perfil.component';
+import { CharacterDetailComponent } from './character/character-detail/character-detail.component';
+import { ComicDetailComponent } from './comic/comic-detail/comic-detail.component';
+import { ComicFavoriteComponent } from './comic/comic-favorite/comic-favorite.component';
+import { CharacterFavoriteComponent } from './character/character-favorite/character-favorite.component';
 
 
 @NgModule({
-  declarations: [CharacterComponent, ComicComponent, PerfilComponent],
+  declarations: [CharacterComponent, ComicComponent, PerfilComponent, CharacterDetailComponent, ComicDetailComponent, ComicFavoriteComponent, CharacterFavoriteComponent],
   imports: [
     CommonModule,
     InternalRoutingModule,
@@ -71,6 +76,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     MatGridListModule,
     FlexLayoutModule,
     NgxPaginationModule,
-  ]
+  ],
+  providers: [Title]
 })
 export class InternalModule { }
