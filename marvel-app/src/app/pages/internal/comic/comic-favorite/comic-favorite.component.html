@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-3" *ngFor="let comic of comics">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style='background-image: url("{{comic.thumbnailPath}}.{{comic.thumbnailPathExtension}}")'>
+
+        </div>
+        <mat-card-title>{{comic.title}}</mat-card-title>
+        <mat-card-subtitle>Marvel</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image style="max-height: 400px;min-height: 400px" src="{{comic.thumbnailPath}}.{{comic.thumbnailPathExtension}}" alt="Photo of a Shiba Inu">
+      <mat-card-content style="max-width: 400px">
+        <p>
+          {{comic.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent" (click)="remove(comic)">GOSTEI</button>
+        <button [routerLink]="['/internal/comic-detail', comic.id_comic]" mat-button >VISUALIZAR</button>
+      </mat-card-actions>
+    </mat-card>
+    <br/>
+
+  </div>
+
+  </div>
