@@ -1,0 +1,40 @@
+<div class="row">
+  <div fxLayout="row" fxLayoutAlign="center center" *ngFor="let comic of comic?.results">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image" style='background-image: url("{{comic.thumbnail.path}}.{{comic.thumbnail.extension}}")'>
+
+        </div>
+        <mat-card-title>{{comic.title}}</mat-card-title>
+        <mat-card-subtitle>Marvel</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image style="max-height: 400px;min-height: 400px" src="{{comic.thumbnail.path}}.{{comic.thumbnail.extension}}" alt="Photo of a Shiba Inu">
+      <mat-card-content style="max-width: 400px">
+        <p>
+          {{comic.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="{{like?'accent':''}}" (click)="gostei(comic)">GOSTEI</button>
+      </mat-card-actions>
+    </mat-card>
+    <mat-card class="example-card">
+      <mat-card-header>
+        <!-- <mat-card-title>Personagens</mat-card-title> -->
+        <mat-card-subtitle>Personagens</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content style="max-width: 400px">
+        <div *ngIf="comic?.characters?.items?.length">
+        <p *ngFor="let personagem of comic.characters.items">
+          {{personagem.name}}
+        </p>
+      </div>
+      <div *ngIf="!comic?.characters?.items?.length">
+        <p >
+          Não possui personagens
+        </p>
+      </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
