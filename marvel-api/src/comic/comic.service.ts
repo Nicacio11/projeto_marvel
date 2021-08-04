@@ -17,12 +17,18 @@ export class ComicService {
             .first();
     }
 
-    async find(id: string): Promise<ComicModel> {
+    async findByUsuarioAndComic(id_usuario: string, id_comic: number): Promise<ComicModel> {
         return this.modelClass
             .query()
-            .where({ id_usuario: id })
+            .where({ id_usuario, id_comic })
             .limit(1)
             .first();
+    }
+
+    async find(id: string): Promise<ComicModel[]> {
+        return this.modelClass
+            .query()
+            .where({ id_usuario: id });
     }
 
     async create(
@@ -39,8 +45,7 @@ export class ComicService {
     ): Promise<number> {
         return this.modelClass
             .query()
-            .delete()
-            .where({ id });
+            .deleteById(id);
     }
 
 
