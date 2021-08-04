@@ -8,11 +8,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { RouterModule } from '@angular/router';
+import { FullComponent } from './layout/full/full.component';
+import { ContentComponent } from './layout/content/content.component';
 
 
 
 @NgModule({
-  declarations: [NavComponent],
+  declarations: [NavComponent, FullComponent, ContentComponent],
   imports: [
     CommonModule,
     LayoutModule,
