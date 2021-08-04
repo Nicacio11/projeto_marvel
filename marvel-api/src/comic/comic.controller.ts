@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MarvelApiService } from 'src/marvel-api/marvel-api.service';
 import { ComicDTO } from 'src/_dtos/comic.dto';
 import ComicModel from 'src/_models/comic.model';
 import { ComicService } from './comic.service';
 
+@UseGuards(JwtAuthGuard)
 @Controller('v1/comic')
 export class ComicController {
   constructor(private marvelService: MarvelApiService, private comicService: ComicService) {

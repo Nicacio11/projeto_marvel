@@ -28,6 +28,7 @@ export class UsuarioController {
     return user;
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async update(@Param('id') id: string, @Body() data: Partial<UsuarioModel>): Promise<number> {
     return this.service.update(id, data);
