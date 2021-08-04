@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.loginService.login(jsonValue).subscribe(
         () => {
           Swal.close();
-          this.router.navigate(['character']);
+          this.router.navigate(['/internal/character']);
         },
         (err: HttpErrorResponse) => {
           const message =
