@@ -32,10 +32,28 @@ export class MarvelApiService {
       .catch((err) => err);
   }
 
+  getCharactersById(id: number) {
+    const obj = this.generateHash();
+    return this.http
+      .get<any>(`${this.envService.mavelApi}/characters/${id}?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}`)
+      .toPromise()
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
   getComics() {
     const obj = this.generateHash();
     return this.http
       .get<any>(`${this.envService.mavelApi}/comics?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}`)
+      .toPromise()
+      .then((res) => res.data)
+      .catch((err) => err);
+  }
+
+  getComicsById(id: number) {
+    const obj = this.generateHash();
+    return this.http
+      .get<any>(`${this.envService.mavelApi}/comics/${id}?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}`)
       .toPromise()
       .then((res) => res.data)
       .catch((err) => err);
