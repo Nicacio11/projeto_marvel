@@ -24,7 +24,7 @@
     <div class="formGroup">
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Email</mat-label>
-        <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+        <input readonly type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
         <div class="text-danger" *ngIf="formGroup.controls.email.touched && formGroup.controls.email.errors?.required">
           O campo e-mail é obrigatório
         </div>
