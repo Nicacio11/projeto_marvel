@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { Title } from '@angular/platform-browser';
 import { UsuarioDTO } from 'src/app/core/models/usuario.dto';
 import { Comic } from '../comic/comic.model';
 import { PerfilService } from '../perfil/perfil.service';
 import { Character } from './character.model';
 import { CharacterService } from './character.service';
+import Swal from 'sweetalert2'
+import { HttpErrorResponse } from '@angular/common/http';
+import { SearchCharacterDTO } from 'src/app/core/models/search.dto';
 
 @Component({
   selector: 'app-character',
@@ -14,28 +17,22 @@ import { CharacterService } from './character.service';
 })
 export class CharacterComponent implements OnInit {
   character: Character;
-  lowValue: number = 0;
-  highValue: number = 5;
+
   usuarioDto: UsuarioDTO;
+  itemsPerPage = 20;
+  value: any;
+  total: number;
+  offset: number;
   constructor(private characterService: CharacterService, private perfilService: PerfilService, private titleService: Title) { }
 
   ngOnInit(): void {
     this.perfilService.get().subscribe(x => this.usuarioDto = x);
-    this.characterService.getAll().subscribe(x => console.log(this.character = x))
+    this.getCharacter(1);
     this.titleService.setTitle('Personagens');
   }
-  // handlePageChange(page) {
-  //   const searchParams = {
-  //     limit: this.itemsPerPage,
-  //     nameStartsWith: this.searchFG.get('nameStartsWith')?.value,
-  //     startPage: page,
-  //     orderBy: this.searchFG.get('orderBy')?.value,
-  //   } as SearchCharactersParamsDTO;
-  // }
-  // used to build an array of papers relevant at any given time
+
   public getPaginatorData(event: PageEvent): PageEvent {
-    this.lowValue = event.pageIndex * event.pageSize;
-    this.highValue = this.lowValue + event.pageSize;
+    this.getCharacter(event.pageIndex)
     return event;
   }
 
@@ -51,5 +48,28 @@ export class CharacterComponent implements OnInit {
     this.characterService.setAsFavorite(comic).subscribe((x) => {
       objCharacter.gostei = x;
     })
+  }
+
+  getCharacter(page: number) {
+    const searchParams = {
+      limit: this.itemsPerPage,
+      offset: (page - 1) * this.itemsPerPage,
+    } as SearchCharacterDTO;
+    if (this.value) {
+      searchParams.nameStartsWith = this.value
+    }
+    Swal.showLoading();
+    this.characterService.getAll(searchParams).subscribe(
+      (res: any) => {
+        Swal.close();
+        debugger;
+        this.total = res.total;
+        this.offset = page;
+        this.character = res;
+      }, (err: HttpErrorResponse) => {
+        Swal.close();
+        Swal.fire('Algo deu errado!', err.error.message, 'error');
+      },
+    )
   }
 }

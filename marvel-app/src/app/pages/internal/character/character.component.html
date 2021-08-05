@@ -1,6 +1,17 @@
 <div class="row">
-  <div class="col-3" *ngFor="let character of (character?.results |
-    slice: lowValue : highValue)">
+  <div class="col-6">
+    <mat-form-field class="example-form-field" appearance="fill">
+      <mat-label>Buscar por nome</mat-label>
+      <input matInput type="text" [(ngModel)]="value">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-raised-button color="accent" (click)="this.getCharacter(1)">Buscar</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3" *ngFor="let character of (character?.results)">
     <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image" style='background-image: url("{{character.thumbnail.path}}.{{character.thumbnail.extension}}")'>
@@ -20,5 +31,11 @@
         <button mat-button [routerLink]="['/internal/character-detail', character.id]">VISUALIZAR</button>
       </mat-card-actions>
     </mat-card>
+  </div>
+  <div *ngIf="character">
+    <mat-paginator [length]="character?.total" [pageSize]='itemsPerPage'
+    (page)="getPaginatorData($event)" [pageSizeOptions]="[5, 10, 15]"
+    showFirstLastButtons="false">
+      </mat-paginator>
   </div>
   </div>

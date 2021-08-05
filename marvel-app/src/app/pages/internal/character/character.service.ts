@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SearchCharacterDTO } from 'src/app/core/models/search.dto';
 import { environment } from 'src/environments/environment';
 import { Character } from '../character/character.model';
 import { CharacterFavorite } from './character-favorite/character.favorite.model';
@@ -15,8 +16,13 @@ export class CharacterService {
   get(): Observable<Character> {
     return this.http.get<Character>(`${this.baseURL}`);
   }
-  getAll(): Observable<Character> {
-    return this.http.get<Character>(`${this.baseURL}/marvel`);
+
+  getAll(param: SearchCharacterDTO): Observable<Character> {
+    let params = new HttpParams();
+    params = params.set('offset', param.offset!!);
+    params = params.set('limit', param.limit!!);
+    params = params.set('nameStartsWith', param.nameStartsWith!!);
+    return this.http.get<Character>(`${this.baseURL}/marvel`, { params });
   }
   getById(id: number) {
 
