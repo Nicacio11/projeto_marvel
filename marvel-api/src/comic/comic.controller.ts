@@ -13,7 +13,6 @@ export class ComicController {
 
   @Get('marvel')
   async getMarvel(@Query() data: SearchComicDTO) {
-    console.log(data)
     const characters = await this.marvelService.getComics(data)
     return characters.data;
   }

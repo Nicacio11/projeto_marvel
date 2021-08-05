@@ -2,7 +2,6 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from 
 import { MarvelApiService } from 'src/marvel-api/marvel-api.service';
 import { SearchCharacterDTO } from 'src/_dtos/search.dto';
 import CharacterModel from 'src/_models/character.model';
-import ComicModel from 'src/_models/comic.model';
 import { CharacterService } from './character.service';
 
 @Controller('v1/character')

@@ -16,7 +16,6 @@ export class MarvelApiService {
 
   private generateHash() {
     const ts = parseInt(String(Date.now() / 1000), 10);
-    console.log(ts);
     const preHash = ts + this.envService.mavelApiPrivate + this.envService.mavelApiPublic;
     return {
       ts,
