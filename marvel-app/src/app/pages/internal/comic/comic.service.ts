@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { SearchComicDTO } from 'src/app/core/models/search.dto';
 import { environment } from 'src/environments/environment';
 import { ComicFavorite } from './comic-favorite/comic.model';
 import { Comic } from './comic.model';
@@ -14,8 +15,12 @@ export class ComicService {
   get(): Observable<Comic> {
     return this.http.get<Comic>(`${this.baseURL}`);
   }
-  getAll(): Observable<Comic> {
-    return this.http.get<Comic>(`${this.baseURL}/marvel`);
+  getAll(param: SearchComicDTO): Observable<Comic> {
+    let params = new HttpParams();
+    params = params.set('offset', param.offset!!);
+    params = params.set('limit', param.limit!!);
+    params = params.set('titleStartsWith', param.titleStartsWith!!);
+    return this.http.get<Comic>(`${this.baseURL}/marvel`, { params });
   }
   setAsFavorite(obj: any) {
     return this.http.post(`${this.baseURL}/`, obj)

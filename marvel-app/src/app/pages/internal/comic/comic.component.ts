@@ -5,7 +5,9 @@ import { PageEvent } from '@angular/material/paginator';
 import { PerfilService } from '../perfil/perfil.service';
 import { UsuarioDTO } from 'src/app/core/models/usuario.dto';
 import { Title } from '@angular/platform-browser';
-
+import Swal from 'sweetalert2';
+import { SearchComicDTO } from 'src/app/core/models/search.dto';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-comic',
   templateUrl: './comic.component.html',
@@ -13,32 +15,49 @@ import { Title } from '@angular/platform-browser';
 })
 export class ComicComponent implements OnInit {
   comic: Comic;
-  lowValue: number = 0;
-  highValue: number = 5;
   usuarioDto: UsuarioDTO;
+
+  itemsPerPage = 20;
+  value: any;
+  total: number;
+  offset: number;
   constructor(private comicService: ComicService, private perfilService: PerfilService, private titleService: Title) { }
 
   ngOnInit(): void {
 
     this.titleService.setTitle('Comics')
     this.perfilService.get().subscribe(x => this.usuarioDto = x);
-    this.comicService.getAll().subscribe(x => console.log(this.comic = x))
+    this.getComics(1)
   }
-  // handlePageChange(page) {
-  //   const searchParams = {
-  //     limit: this.itemsPerPage,
-  //     nameStartsWith: this.searchFG.get('nameStartsWith')?.value,
-  //     startPage: page,
-  //     orderBy: this.searchFG.get('orderBy')?.value,
-  //   } as SearchCharactersParamsDTO;
-  // }
-  // used to build an array of papers relevant at any given time
+
   public getPaginatorData(event: PageEvent): PageEvent {
-    this.lowValue = event.pageIndex * event.pageSize;
-    this.highValue = this.lowValue + event.pageSize;
+    this.getComics(event.pageIndex)
     return event;
   }
 
+  getComics(page: number) {
+    const searchParams = {
+      limit: this.itemsPerPage,
+      offset: (page - 1) * this.itemsPerPage,
+    } as SearchComicDTO;
+    if (this.value) {
+      searchParams.titleStartsWith = this.value
+    }
+    debugger;
+    Swal.showLoading();
+    this.comicService.getAll(searchParams).subscribe(
+      (res) => {
+        Swal.close();
+        debugger;
+        this.total = res.total;
+        this.offset = page;
+        this.comic = res;
+      }, (err: HttpErrorResponse) => {
+        Swal.close();
+        Swal.fire('Algo deu errado!', err.error.message, 'error');
+      },
+    )
+  }
   gostei(objComic: any) {
     const comic = {
       id_usuario: this.usuarioDto.id,
