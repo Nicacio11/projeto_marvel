@@ -35,7 +35,7 @@ export class CharacterController {
     return 1;
   }
 
-  @Delete('id')
+  @Delete(':id')
   async DeleteFavorite(@Param('id', new ParseIntPipe()) id: number): Promise<number> {
     return this.characterService.delete(id);
   }
