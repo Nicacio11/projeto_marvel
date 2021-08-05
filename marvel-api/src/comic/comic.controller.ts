@@ -1,7 +1,7 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, ParseIntPipe, Post, Query, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { MarvelApiService } from 'src/marvel-api/marvel-api.service';
-import { ComicDTO } from 'src/_dtos/comic.dto';
+import { SearchComicDTO } from 'src/_dtos/search.dto';
 import ComicModel from 'src/_models/comic.model';
 import { ComicService } from './comic.service';
 
@@ -12,8 +12,9 @@ export class ComicController {
   }
 
   @Get('marvel')
-  async getMarvel() {
-    const characters = await this.marvelService.getComics()
+  async getMarvel(@Query() data: SearchComicDTO) {
+    console.log(data)
+    const characters = await this.marvelService.getComics(data)
     return characters.data;
   }
 

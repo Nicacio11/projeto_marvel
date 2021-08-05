@@ -45,8 +45,7 @@ export class CharacterService {
     ): Promise<number> {
         return this.modelClass
             .query()
-            .delete()
-            .where({ id });
+            .deleteById(id);
     }
 
 

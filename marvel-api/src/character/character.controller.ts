@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { MarvelApiService } from 'src/marvel-api/marvel-api.service';
+import { SearchCharacterDTO } from 'src/_dtos/search.dto';
 import CharacterModel from 'src/_models/character.model';
 import ComicModel from 'src/_models/comic.model';
 import { CharacterService } from './character.service';
@@ -9,16 +10,9 @@ export class CharacterController {
   constructor(private marvelService: MarvelApiService, private characterService: CharacterService) {
   }
 
-  @Get()
-  async get() {
-    const characters = await this.marvelService.getCharacters()
-    return characters.data;
-  }
-
-
   @Get('marvel')
-  async getMarvel() {
-    const characters = await this.marvelService.getCharacters()
+  async getMarvel(@Query() data: SearchCharacterDTO) {
+    const characters = await this.marvelService.getCharacters(data)
     return characters.data;
   }
 
@@ -27,7 +21,6 @@ export class CharacterController {
     const characters = await this.marvelService.getCharactersById(id)
     return characters.data;
   }
-
 
   @Post()
   async setAsFavorite(@Body() data: CharacterModel): Promise<number> {

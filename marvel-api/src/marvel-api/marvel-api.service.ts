@@ -3,6 +3,7 @@ import EnvService from 'src/config/env.service';
 import crypto from 'crypto';
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
+import { SearchCharacterDTO, SearchComicDTO } from 'src/_dtos/search.dto';
 
 @Injectable()
 export class MarvelApiService {
@@ -23,10 +24,10 @@ export class MarvelApiService {
     };
   }
 
-  getCharacters() {
+  getCharacters(search: SearchCharacterDTO) {
     const obj = this.generateHash();
     return this.http
-      .get<any>(`${this.envService.mavelApi}/characters?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}`)
+      .get<any>(`${this.envService.mavelApi}/characters?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}&offset=${search.offset}&limit=${search.limit}${search.nameStartsWith && search.nameStartsWith != 'undefined' ? '&nameStartsWith=' + search.nameStartsWith : ''}`)
       .toPromise()
       .then((res) => res.data)
       .catch((err) => err);
@@ -41,10 +42,10 @@ export class MarvelApiService {
       .catch((err) => err);
   }
 
-  getComics() {
+  getComics(search: SearchComicDTO) {
     const obj = this.generateHash();
     return this.http
-      .get<any>(`${this.envService.mavelApi}/comics?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}`)
+      .get<any>(`${this.envService.mavelApi}/comics?ts=${obj.ts}&apikey=${this.envService.mavelApiPublic}&hash=${obj.hash}&offset=${search.offset}&limit=${search.limit}${search.titleStartsWith && search.titleStartsWith != 'undefined' ? '&titleStartsWith=' + search.titleStartsWith : ''}`)
       .toPromise()
       .then((res) => res.data)
       .catch((err) => err);
