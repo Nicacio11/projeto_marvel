@@ -33,7 +33,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { PerfilComponent } from './perfil/perfil.component';
 import { CharacterDetailComponent } from './character/character-detail/character-detail.component';
 import { ComicDetailComponent } from './comic/comic-detail/comic-detail.component';
@@ -75,7 +74,6 @@ import { CharacterFavoriteComponent } from './character/character-favorite/chara
     PortalModule,
     MatGridListModule,
     FlexLayoutModule,
-    NgxPaginationModule,
     FormsModule
   ],
   providers: [Title]
