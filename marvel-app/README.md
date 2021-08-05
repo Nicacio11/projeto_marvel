@@ -27,12 +27,5 @@ npm run test
 
 👤 **Vitor Nicácio dos Santos**
 
-* Github: [@Nicacio11](https://github.com/Nicacio11)
-* LinkedIn: [@https:\/\/www.linkedin.com\/in\/vitor-nicacio-dos-santos-134301140\/](https://linkedin.com/in/https:\/\/www.linkedin.com\/in\/vitor-nicacio-dos-santos-134301140\/)
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+- Github: [@Nicacio11](https://github.com/Nicacio11)
+- LinkedIn: [@https:\/\/www.linkedin.com\/in\/vitor-nicacio-dos-santos-134301140\/](https://linkedin.com/in/https://www.linkedin.com/in/vitor-nicacio-dos-santos-134301140/)
