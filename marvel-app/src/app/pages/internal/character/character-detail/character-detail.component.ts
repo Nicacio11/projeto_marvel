@@ -24,9 +24,19 @@ export class CharacterDetailComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Detalhes do Personagem');
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.characterService.getCharacterById(+id!).subscribe(x => (this.character = x))
-    this.perfilService.get().subscribe(x => this.usuarioDto = x);
-
+    this.characterService.getCharacterById(+id!).subscribe(x => {
+      this.character = x
+      this.perfilService.get().subscribe(y => {
+        this.usuarioDto = y
+        this.characterService.getByUserId(y.id!).subscribe(z => {
+          if (z.map(map => map.id_character).includes(x.results[0].id)) {
+            this.like = 1;
+          } else {
+            this.like = 0;
+          }
+        })
+      });
+    })
   }
 
   gostei(objCharacter: any) {
