@@ -52,6 +52,17 @@ export class ComicComponent implements OnInit {
         this.total = res.total;
         this.offset = page;
         this.comic = res;
+        this.perfilService.get().subscribe(x => {
+          this.usuarioDto = x
+          this.comicService.getByUserId(x.id!).subscribe(y => {
+
+            this.comic?.results.forEach(element => {
+              if (y.map(z => z.id_comic).includes(element.id)) {
+                element.gostei = 1
+              }
+            });
+          })
+        });
       }, (err: HttpErrorResponse) => {
         Swal.close();
         Swal.fire('Algo deu errado!', err.error.message, 'error');
