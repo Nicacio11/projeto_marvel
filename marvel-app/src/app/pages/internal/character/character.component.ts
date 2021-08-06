@@ -66,6 +66,18 @@ export class CharacterComponent implements OnInit {
         this.total = res.total;
         this.offset = page;
         this.character = res;
+
+        this.perfilService.get().subscribe(x => {
+          this.usuarioDto = x
+          this.characterService.getByUserId(x.id!).subscribe(y => {
+
+            this.character?.results.forEach(element => {
+              if (y.map(z => z.id_character).includes(element.id)) {
+                element.gostei = 1
+              }
+            });
+          })
+        });
       }, (err: HttpErrorResponse) => {
         Swal.close();
         Swal.fire('Algo deu errado!', err.error.message, 'error');
