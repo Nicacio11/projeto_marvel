@@ -21,8 +21,20 @@ export class ComicDetailComponent implements OnInit {
 
     this.titleService.setTitle('Detalhes da comic')
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.comicService.getComicById(+id!).subscribe(x => (this.comic = x))
-    this.perfilService.get().subscribe(x => this.usuarioDto = x);
+    this.comicService.getComicById(+id!).subscribe(x => {
+      this.comic = x
+      this.perfilService.get().subscribe(y => {
+        this.usuarioDto = y
+        this.comicService.getByUserId(y.id!).subscribe(z => {
+          if (z.map(map => map.id_comic).includes(x.results[0].id)) {
+            this.like = 1;
+          } else {
+            this.like = 0;
+          }
+        })
+      });
+    })
+
 
   }
 
