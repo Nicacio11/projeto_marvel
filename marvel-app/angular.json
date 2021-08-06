@@ -30,6 +30,11 @@
               "./node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "./node_modules/bootstrap/scss/bootstrap.scss",
               "./node_modules/ng2-toasty/bundles/style.css",
+              "src/assets/css/animate.min.css",
+              "src/assets/css/font-awesome.min.css",
+              "src/assets/css/themify-icons.css",
+              "src/assets/css/ei-icon.css",
+              "src/assets/css/print.css",
               "src/styles.scss",
             ],
             "scripts": [
