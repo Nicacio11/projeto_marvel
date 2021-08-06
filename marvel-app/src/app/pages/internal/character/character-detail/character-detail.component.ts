@@ -24,7 +24,7 @@ export class CharacterDetailComponent implements OnInit {
   ngOnInit(): void {
     this.titleService.setTitle('Detalhes do Personagem');
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.characterService.getCharacterById(+id!).subscribe(x => console.log(this.character = x))
+    this.characterService.getCharacterById(+id!).subscribe(x => (this.character = x))
     this.perfilService.get().subscribe(x => this.usuarioDto = x);
 
   }

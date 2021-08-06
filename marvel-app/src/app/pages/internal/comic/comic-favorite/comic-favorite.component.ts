@@ -23,13 +23,12 @@ export class ComicFavoriteComponent implements OnInit {
     this.titleService.setTitle('Comics favoritas')
     this.perfilService.get().subscribe(x => {
       this.usuarioDto = x
-      this.comicService.getByUserId(x.id!).subscribe(y => console.log(this.comics = y))
+      this.comicService.getByUserId(x.id!).subscribe(y => (this.comics = y))
     });
 
   }
 
   remove(objComic: any) {
-    console.log(objComic)
     this.comicService.delete(objComic.id).subscribe(() => {
       this.comics = this.comics.filter((y: ComicFavorite) => y.id !== objComic.id)!
     })

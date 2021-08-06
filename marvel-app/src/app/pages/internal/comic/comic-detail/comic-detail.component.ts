@@ -21,7 +21,7 @@ export class ComicDetailComponent implements OnInit {
 
     this.titleService.setTitle('Detalhes da comic')
     const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.comicService.getComicById(+id!).subscribe(x => console.log(this.comic = x))
+    this.comicService.getComicById(+id!).subscribe(x => (this.comic = x))
     this.perfilService.get().subscribe(x => this.usuarioDto = x);
 
   }

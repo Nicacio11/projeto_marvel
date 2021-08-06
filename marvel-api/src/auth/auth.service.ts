@@ -10,9 +10,7 @@ export class AuthService {
     private jwtService: JwtService) { }
 
   async validateUser(username: string, pass: string): Promise<any> {
-    console.log('chega')
     const user = await this.usuarioService.findOneByEmail(username);
-    console.log(user);
     if (user && (await user.comparePassword(pass))) {
       const { id, nome, email } = user;
       return { id, nome, email };
